@@ -124,24 +124,31 @@ export default function Filters() {
       <div className={css.filterBox}>
         <label className={css.label}>Car mileage / km</label>
         <div className={css.inputGroup}>
-          <input
-            name="minMileage"
-            type="number"
-            placeholder="From"
-            className={css.input}
-            value={form.minMileage}
-            onChange={handleChange}
-            min={0}
-          />
-          <input
-            name="maxMileage"
-            type="number"
-            placeholder="To"
-            className={css.input}
-            value={form.maxMileage}
-            onChange={handleChange}
-            min={0}
-          />
+          <div className={css.inputWrapper}>
+            <span className={`${css.inputPrefix} ${css.inputPrefixFrom}`}>From</span>
+            <input
+              name="minMileage"
+              type="number"
+              className={`${css.input} ${css.inputFrom}`}
+              value={form.minMileage}
+              onChange={handleChange}
+              min={0}
+              aria-label="Minimum mileage"
+            />
+          </div>
+
+          <div className={css.inputWrapper}>
+            <span className={`${css.inputPrefix} ${css.inputPrefixTo}`}>To</span>
+            <input
+              name="maxMileage"
+              type="number"
+              className={`${css.inputTo} ${css.input}`}
+              value={form.maxMileage}
+              onChange={handleChange}
+              min={0}
+              aria-label="Maximum mileage"
+            />
+          </div>
         </div>
       </div>
 
