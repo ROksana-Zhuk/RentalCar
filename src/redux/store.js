@@ -19,7 +19,6 @@ const persistedFavoritesReducer = persistReducer(
   {
     key: "favorites",
     storage,
-    whitelist: ["favorites"],
   },
   favoriteReducer
 );
@@ -27,7 +26,6 @@ const persistedFavoritesReducer = persistReducer(
 export const store = configureStore({
   reducer: {
     cars: carsReducer,
-    // brands: brandsReducer,
     filters: filtersReducer,
     favorites: persistedFavoritesReducer,
   },

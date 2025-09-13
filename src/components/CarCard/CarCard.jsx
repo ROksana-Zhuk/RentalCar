@@ -1,55 +1,81 @@
 import { useNavigate } from 'react-router-dom';
 import css from './CarCard.module.css';
-import { BsFillHeartFill } from "react-icons/bs";
-import { BsHeart } from "react-icons/bs";
+import { BsFillHeartFill, BsHeart } from "react-icons/bs";
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '../../redux/favorite/slice.js';
+import { selectIsFavorite } from '../../redux/favorite/selectors.js';
 
-export default function CarCard ({ car }) {
+export default function CarCard({ car }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const isFavorite = false; // Placeholder for favorite status
+  const isFavorite = useSelector((state) => selectIsFavorite(state, car.id));
 
-    const navigate = useNavigate();
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (isFavorite) {
+      dispatch(removeFavorite(car.id));
+    } else {
+      dispatch(addFavorite(car));
+    }
+  };
 
-    const formatAddress = (address) => {
-        const parts = address.split(',').map(part => part.trim());
-        if (parts.length >= 2) {
-          const city = parts[parts.length - 2];
-          const country = parts[parts.length - 1];
-          return `${city} | ${country}`;
-        }
-        return address;
-      };
+  const formatAddress = (address) => {
+    const parts = address.split(',').map(part => part.trim());
+    if (parts.length >= 2) {
+      const city = parts[parts.length - 2];
+      const country = parts[parts.length - 1];
+      return `${city} | ${country}`;
+    }
+    return address;
+  };
 
-    const formatMileage = (miles) => {
-        const km = miles * 1.60934;
-        return `${Math.round(km).toLocaleString('uk-UA')} km`;
-    };
-
+  const formatMileage = (miles) => {
+    const km = miles * 1.60934;
+    return `${Math.round(km).toLocaleString('uk-UA')} km`;
+  };
 
   return (
     <div className={css.card}>
-
-      <button className={css.favorite}>
+      <button
+        type="button"
+        className={css.favorite}
+        onClick={handleFavoriteClick}
+        aria-pressed={isFavorite}
+        aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      >
         {isFavorite ? (
           <BsFillHeartFill color="#3470FF" />
         ) : (
           <BsHeart color="#F2F4F7" />
         )}
       </button>
-      <img alt={car.description} src={car.img} className={css.image}/>
+
+      <img alt={car.description} src={car.img} className={css.image} />
+
       <div className={css.wrapper}>
         <p className={css.title}>
-        {car.brand} <span className={css.model}>{car.model}</span>, {car.year}
+          {car.brand} <span className={css.model}>{car.model}</span>, {car.year}
         </p>
         <p className={css.price}>${car.rentalPrice}</p>
       </div>
 
       <div className={css.info}>
-        <p className={css.text}>{formatAddress(car.address)} | {car.rentalCompany} |</p>
-        <p className={css.text}>{car.type} | {formatMileage(car.mileage)}</p>
-        </div>
-        <button className={css.button} onClick={() => navigate(`/catalog/${car.id}`)}>Read more</button>
+        <p className={css.text}>
+          {formatAddress(car.address)} | {car.rentalCompany} |
+        </p>
+        <p className={css.text}>
+          {car.type} | {formatMileage(car.mileage)}
+        </p>
       </div>
+
+      <button
+        className={css.button}
+        onClick={() => navigate(`/catalog/${car.id}`)}
+      >
+        Read more
+      </button>
+    </div>
   );
 }
-
-

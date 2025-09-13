@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import css from './BookingForm.module.css'
 import "./datepicker.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function BookingForm() {
   const [startDate, setStartDate] = useState(null);
+  const formRef = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success('Booking successful');
+    if (formRef.current) formRef.current.reset();
+    setStartDate(null);
+  };
 
   return (
     <div className={css.wrapper}>
+    <Toaster position="top-right" />
     <h3 className={css.title}>Book this car now</h3>
     <p className={css.text}>Stay connected! We are always ready to help you.</p>
-    <form className={css.booking_form}
+    <form ref={formRef} onSubmit={handleSubmit} className={css.booking_form}
     >
       <input className={css.input}
         type="text"
