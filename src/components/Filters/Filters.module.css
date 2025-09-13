@@ -1,0 +1,75 @@
+.filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 84px;
+    width: 100%;
+    margin-bottom: 56px;
+}
+
+.filterBox {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    color: #8D929A;
+    font-size: 12px;
+    line-height: 16px;
+}
+.select {
+    border-radius: 12px;
+    padding: 12px 24px;
+    border: none;
+    background-color: #F7F7F7;
+}
+.inputGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+
+}
+
+.input {
+    -moz-appearance: textfield;
+    background-color: #F7F7F7;
+    border: none;
+    padding: 12px;
+    width: 160px;
+    height: 44px;
+}
+
+.inputGroup input:first-of-type {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-right: 1px solid #DADDE1;
+}
+
+.inputGroup input:last-of-type {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.button {
+    background-color: #3470FF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    transition: background-color 0.3s ease;
+    height: 44px;
+    padding: 12px 51px;
+    margin-top: 22px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #0B44CD;
+}

@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-base: 'Manrope', sans-serif;
+
+  --fs-sm: 12px;
+  --fs-md: 16px;
+  --fs-lg: 24px;
+  --fs-xl: 60px;
+
+  --lh-sm: 16px;
+  --lh-md: 20px;
+  --lh-lg: 32px;
+  --lh-xl: 72px;
+
+  --color-text: #101828;
+  --color-bg: #fbfcf8;
+
+  --radius: 12px;
+
+  font-family: var(--font-base);
+  font-size: var(--fs-md);
+  line-height: var(--lh-md);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+body.skroll {
+  overflow: hidden;
+}
+
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
+}

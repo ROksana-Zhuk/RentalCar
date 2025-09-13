@@ -1,0 +1,22 @@
+
+.logo {
+    width: 104px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: 'ITC Oblique bold', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 20px;
+
+}
+
+.text {
+    color: #101828;
+
+}
+.span {
+   color: #3470FF;
+}

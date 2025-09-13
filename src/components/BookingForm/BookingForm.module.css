@@ -1,0 +1,127 @@
+.wrapper {
+    max-width: 640px;
+    border: 1px solid #DADDE1;
+    border-radius: 10px;
+    padding: 32px;
+}
+
+.booking_form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+  max-width: 576px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+.text {
+    color: #8D929A;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    margin-bottom: 24px;
+}
+
+.input,
+.textarea {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background-color: #F7F7F7;
+  color: #8D929A;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  width: 100%;
+}
+.textarea {
+    margin-bottom: 16px;
+    height: 88px;
+}
+
+.button {
+  background-color: #3470FF;
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 58px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 0 auto;
+  margin-bottom: 8px;
+}
+
+.button:hover {
+  background-color: #0B44CD;
+}
+
+
+
+/* Календар */
+.calendar {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #3470FF;
+  min-width: 276px;
+  min-height: 284px;
+}
+
+.calendar :global(.react-datepicker__header) {
+
+  background: #FFFFFF;
+  border-bottom: none;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.calendar :global(.react-datepicker__header)::after {
+    content: "";
+    display: block;
+    width: 108%;
+    height: 1px;
+    background-color: #3470FF; /* Синій колір */
+    position: absolute;
+    bottom: 0;
+    left: -12px;
+  }
+
+.calendar :global(.react-datepicker__current-month) {
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 16px;
+  line-height: 120%;
+}
+.calendar :global(.react-datepicker__day) {
+  color: #101828;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 120%;
+  width: 36px;
+  height: 32px;
+}
+.calendar :global(.react-datepicker__day--today) {
+  font-weight: 700;
+  background-color: #3470FF;
+  border-radius: 50%;
+  color: #F7F7F7;
+}
+
+.calendar :global(.react-datepicker__day:hover) {
+  background-color: #0B44CD;
+}
+
+.calendar :global(.react-datepicker__navigation-icon--next::before) {
+    margin-top: 5px;
+    width: 24px;
+    height: 24px;
+
+}

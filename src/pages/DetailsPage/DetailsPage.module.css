@@ -1,0 +1,19 @@
+.wrap {
+    display: flex;
+    flex-direction: row;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    object-fit: cover;
+    border-radius: 18.74px;
+    margin-left: 0;
+    margin-top: 84px;
+    margin-right: 72px;
+    margin-bottom: 40px;
+}
+

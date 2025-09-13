@@ -1,0 +1,57 @@
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+   margin-bottom: 68px;
+   margin-top: 104px;
+}
+
+.title {
+   font-weight: 600;
+   font-size: 24px;
+   line-height: 1.33;
+   margin-bottom: 8px;
+}
+
+.inlineBlock {
+    display: inline-block;
+    margin-right: 16px;
+  }
+
+
+.price {
+    color: #3470FF;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.33;
+    margin-bottom: 32px;
+    margin-top: 16px;
+}
+
+.subtitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.33;
+    margin-bottom: 110px;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 110px;
+  }
