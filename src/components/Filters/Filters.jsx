@@ -12,30 +12,31 @@ import { getBrandCar } from '../../services/carService.jsx';
 import { useEffect, useState } from 'react';
 import { setLoading } from '../../redux/ui/slice.js';
 
+// Price options can live outside the component to avoid re-creation on each render
+const priceOptions = [30, 40, 50, 60, 70, 80];
+
 export default function Filters() {
   const dispatch = useDispatch();
   const filters = useSelector(selectFilters);
 
-  console.log('filters:', filters);
-
   const [allBrands, setAllBrands] = useState([]);
 
-  // Local form state — do not dispatch on every change
-  const [localBrand, setLocalBrand] = useState(filters.brand ?? '');
-  const [localPrice, setLocalPrice] = useState(filters.rentalPrice ?? '');
-  const [localMileageFrom, setLocalMileageFrom] = useState(
-    filters.minMileage ?? ''
-  );
-  const [localMileageTo, setLocalMileageTo] = useState(filters.maxMileage ?? '');
-
-  const priceOptions = [30, 40, 50, 60, 70, 80];
+  // Consolidated local form state — do not dispatch on every change
+  const [form, setForm] = useState({
+    brand: filters.brand ?? '',
+    rentalPrice: filters.rentalPrice ?? '',
+    minMileage: filters.minMileage ?? '',
+    maxMileage: filters.maxMileage ?? '',
+  });
 
   // Keep local inputs in sync if filters in the store change externally
   useEffect(() => {
-    setLocalBrand(filters.brand ?? '');
-    setLocalPrice(filters.rentalPrice ?? '');
-    setLocalMileageFrom(filters.minMileage ?? '');
-    setLocalMileageTo(filters.maxMileage ?? '');
+    setForm({
+      brand: filters.brand ?? '',
+      rentalPrice: filters.rentalPrice ?? '',
+      minMileage: filters.minMileage ?? '',
+      maxMileage: filters.maxMileage ?? '',
+    });
   }, [filters]);
 
   useEffect(() => {
@@ -53,32 +54,21 @@ export default function Filters() {
     getAllBrands();
   }, [dispatch]);
 
-  // Local change handlers
-  const handleBrandChange = (e) => {
-    setLocalBrand(e.target.value);
-  };
-
-  const handlePriceChange = (e) => {
-    setLocalPrice(e.target.value);
-  };
-
-  const handleMileageFromChange = (e) => {
-    setLocalMileageFrom(e.target.value);
-  };
-
-  const handleMileageToChange = (e) => {
-    setLocalMileageTo(e.target.value);
+  // Generic change handler for all inputs/selects
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((s) => ({ ...s, [name]: value }));
   };
 
   // Submit: write local values to Redux and trigger search (reset cars + set page)
   const handleSearch = (e) => {
     e.preventDefault();
 
-    dispatch(setBrand(localBrand || null));
-    dispatch(setPrice(localPrice || null));
+    dispatch(setBrand(form.brand || null));
+    dispatch(setPrice(form.rentalPrice || null));
 
-    const from = localMileageFrom !== '' ? Number(localMileageFrom) : null;
-    const to = localMileageTo !== '' ? Number(localMileageTo) : null;
+    const from = form.minMileage !== '' ? Number(form.minMileage) : null;
+    const to = form.maxMileage !== '' ? Number(form.maxMileage) : null;
 
     dispatch(setMileageFrom(from));
     dispatch(setMileageTo(to));
@@ -93,10 +83,16 @@ export default function Filters() {
         <label className={css.label} htmlFor="brand">
           Car brand
         </label>
-        <select id="brand" className={css.select} value={localBrand} onChange={handleBrandChange}>
+        <select
+          id="brand"
+          name="brand"
+          className={css.select}
+          value={form.brand}
+          onChange={handleChange}
+        >
           <option value="">Choose a brand</option>
-          {allBrands.map((brand, index) => (
-            <option key={index} value={brand}>
+          {allBrands.map((brand) => (
+            <option key={brand} value={brand}>
               {brand}
             </option>
           ))}
@@ -110,9 +106,10 @@ export default function Filters() {
         <div className={css.selectWrapper}>
           <select
             id="price"
+            name="rentalPrice"
             className={css.select}
-            value={localPrice}
-            onChange={handlePriceChange}
+            value={form.rentalPrice}
+            onChange={handleChange}
             required
           >
             <option value="">Choose a price</option>
@@ -128,19 +125,21 @@ export default function Filters() {
         <label className={css.label}>Car mileage / km</label>
         <div className={css.inputGroup}>
           <input
+            name="minMileage"
             type="number"
             placeholder="From"
             className={css.input}
-            value={localMileageFrom}
-            onChange={handleMileageFromChange}
+            value={form.minMileage}
+            onChange={handleChange}
             min={0}
           />
           <input
+            name="maxMileage"
             type="number"
             placeholder="To"
             className={css.input}
-            value={localMileageTo}
-            onChange={handleMileageToChange}
+            value={form.maxMileage}
+            onChange={handleChange}
             min={0}
           />
         </div>

@@ -6,7 +6,6 @@ export default function DetailsCar( { car }) {
 const accessoriesAndFunctionalities = car.accessories.concat(car.functionalities)
 
 
-console.log("car", car);
 const formatAddress = (address) => {
     const parts = address.split(',').map(part => part.trim());
     if (parts.length >= 2) {
