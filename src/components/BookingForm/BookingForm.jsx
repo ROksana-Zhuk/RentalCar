@@ -28,40 +28,38 @@ export default function BookingForm() {
         placeholder="Email"
       />
 
-      <div className={css.wrapCalendar}>
-        <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            placeholderText="Booking date"
-            className={css.input}
-            calendarStartDay={1}
-            formatWeekDay={(day) => day.slice(0, 3)}
-            renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-              <div className={css.headerCalendar}>
-                <button
-                  type="button"
-                  onClick={decreaseMonth}
-                  className={css.customArrow}
-                >
-                  <IoIosArrowBack color="#3470ff" size={20} />
-                </button>
-                <span className={css.span}>
-                  {date.toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </span>
-                <button
-                  type="button"
-                  onClick={increaseMonth}
-                  className={css.customArrow}
-                >
-                  <IoIosArrowForward color="#3470ff" size={20} />
-                </button>
-              </div>
-            )}
-          />
-      </div>
+      <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          placeholderText="Booking date"
+          className={css.input}
+          calendarStartDay={1}
+          formatWeekDay={(day) => day.slice(0, 3)}
+          renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+            <div className={css.headerCalendar}>
+              <button
+                type="button"
+                onClick={decreaseMonth}
+                className={css.customArrow}
+              >
+                <IoIosArrowBack color="#3470ff" size={20} />
+              </button>
+              <span className={css.span}>
+                {date.toLocaleDateString("en-US", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+              <button
+                type="button"
+                onClick={increaseMonth}
+                className={css.customArrow}
+              >
+                <IoIosArrowForward color="#3470ff" size={20} />
+              </button>
+            </div>
+          )}
+       />
 
 
       <textarea className={css.textarea}
