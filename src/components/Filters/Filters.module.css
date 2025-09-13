@@ -24,15 +24,13 @@
     padding: 12px 24px;
     border: none;
     background-color: #F7F7F7;
-    /* ensure select and prefix share same font characteristics */
     font-family: inherit;
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
     color: inherit;
-    /* make width constant regardless of padding changes */
-    width: 196px; /* match other inputs */
-    box-sizing: border-box; /* include padding in width */
+    width: 196px;
+    box-sizing: border-box;
 }
 .inputGroup {
     display: flex;

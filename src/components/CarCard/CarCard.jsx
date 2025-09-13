@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import css from './CarCard.module.css';
+import { BsFillHeartFill } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
 
 export default function CarCard ({ car }) {
+
+    const isFavorite = false; // Placeholder for favorite status
 
     const navigate = useNavigate();
 
@@ -22,7 +26,15 @@ export default function CarCard ({ car }) {
 
 
   return (
-    <div>
+    <div className={css.card}>
+
+      <button className={css.favorite}>
+        {isFavorite ? (
+          <BsFillHeartFill color="#3470FF" />
+        ) : (
+          <BsHeart color="#F2F4F7" />
+        )}
+      </button>
       <img alt={car.description} src={car.img} className={css.image}/>
       <div className={css.wrapper}>
         <p className={css.title}>

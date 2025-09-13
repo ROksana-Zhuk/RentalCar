@@ -19,13 +19,13 @@ export default function BookingForm() {
         type="text"
         name="name"
         required
-        placeholder="Name"
+        placeholder="Name*"
       />
       <input className={css.input}
         type="email"
         name="email"
         required
-        placeholder="Email"
+        placeholder="Email*"
       />
 
       <DatePicker
