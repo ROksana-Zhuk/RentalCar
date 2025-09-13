@@ -59,6 +59,7 @@
 .textarea {
     margin-bottom: 16px;
     height: 88px;
+    outline: none;
 }
 
 .button {

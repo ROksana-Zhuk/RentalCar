@@ -30,12 +30,15 @@ export default function BookingForm() {
         name="name"
         required
         placeholder="Name*"
+        minLength={2}
+        maxLength={20}
       />
       <input className={css.input}
         type="email"
         name="email"
         required
         placeholder="Email*"
+        pattern="^[a-zA-Z0-9_\-+]+@[a-zA-Z]+\.[a-zA-Z]{2,3}$"
       />
 
       <DatePicker
@@ -75,7 +78,9 @@ export default function BookingForm() {
       <textarea className={css.textarea}
         name="comment"
         placeholder="Comment"
+        rows="5"
       />
+
       <button type="submit" className={css.button}>Send</button>
     </form>
     </div>
