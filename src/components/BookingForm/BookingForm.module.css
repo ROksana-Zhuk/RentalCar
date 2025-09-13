@@ -40,6 +40,22 @@
   line-height: 20px;
   width: 100%;
 }
+
+.input {
+    border-radius: 12px;
+    padding: 12px 20px;
+    width: 576px;
+    height: 48px;
+    background: #f7f7f7;
+    border: none;
+    outline: none;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
+    color: #8d929a;
+
+}
 .textarea {
     margin-bottom: 16px;
     height: 88px;
@@ -65,161 +81,30 @@
 
 
 
-/* Календар */
-/* .calendar {
-  background: #FFFFFF;
-  border-radius: 12px;
-  padding: 12px;
-  border: 1px solid #3470FF;
-  min-width: 276px;
-  min-height: 284px;
-}
-
-.calendar :global(.react-datepicker__header) {
-/*
-  background: #FFFFFF;
-  border-bottom: none;
-  padding-bottom: 8px;
-  position: relative;
-}
-
-.calendar :global(.react-datepicker__header)::after {
-    content: "";
-    display: block;
-    width: 108%;
-    height: 1px;
-    background-color: #3470FF;
-    position: absolute;
-    bottom: 0;
-    left: -12px;
-  }
-
-.calendar :global(.react-datepicker__current-month) {
-  font-weight: 600;
-  font-family: Inter;
-  font-size: 16px;
-  line-height: 120%;
-}
-.calendar :global(.react-datepicker__day) {
-  color: #101828;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 120%;
-  width: 36px;
-  height: 32px;
-}
-.calendar :global(.react-datepicker__day--today) {
-  font-weight: 700;
-  background-color: #3470FF;
-  border-radius: 50%;
-  color: #F7F7F7;
-}
-
-.calendar :global(.react-datepicker__day:hover) {
-  background-color: #0B44CD;
-}
-
-.calendar :global(.react-datepicker__navigation-icon--next::before) {
-    margin-top: 5px;
+.customArrow {
     width: 24px;
-    height: 24px;
-
-}
-
-???????????????????????????????????????????????????????????
-
-.react-datepicker {
-    border: 1px solid #3470ff;
-    border-radius: 12px;
-    overflow: hidden;
-
-}
-.react-datepicker__header {
-    border-bottom: none;
+    height: 20px;
+    border: none;
     background: transparent;
-    padding: 12px 0 0 0;
 }
-.react-datepicker__current-month {
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 120%;
-    text-align: center;
-    color: #101828;
-}
-.react-datepicker__week {
-    display: flex;
 
-
-}
-.react-datepicker__day{
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 120%;
-    text-align: center;
+.headerCalendar {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: #101828;
-    width: 36px;
-    height: 32px;
-    border-radius: 32px;
-    transition: color 0.8s ease, background 0.8s ease;
-}
-
-.react-datepicker__month .react-datepicker__day:hover {
-  border-radius: 32px;
-  background: #8E929A;
-  color: #fff;
-}
-.react-datepicker__day-names {
-    border-bottom: 1px solid #3470ff;
-    padding: 12px;
-    display: flex;
     justify-content: space-between;
-
+    padding: 0 12px;
 }
-.react-datepicker__day-name{
+
+.span {
     font-family: "Inter", sans-serif;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 120%;
-    text-align: center;
-    color: #8d929a;
-    text-transform: uppercase;
-
-
-}
-.react-datepicker__navigation {
-    top: 8px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 120%;
+        text-align: center;
+        color: #101828;
 }
 
-.react-datepicker__month {
-    padding-top: 12px;
-}
-.react-datepicker__day--outside-month {
-    color: #8d929a;
-}
-.react-datepicker__day--selected {
-    background: #0B44CD;
-    color: #fff;
-    transition: color 0.8s ease, background 0.8s ease;
-}
-.react-datepicker__month .react-datepicker__day--selected:hover {
-    background: #8E929A;
-    color: #fff;
-}
-.react-datepicker__day--keyboard-selected {
-    background: transparent;
-
-}
- .react-datepicker__day--today {
-    background: #3470ff;
-        color: #fff;
-        transition: background 0.8s ease;
-}
-.react-datepicker__month  .react-datepicker__day--today:hover {
-     background: #0B44CD;
-
-} *!??????????????????????????????????????????????????????????? */
+.wrapCalendar {
+    margin-bottom: 8px;
+    margin-top: 8px;
+  }

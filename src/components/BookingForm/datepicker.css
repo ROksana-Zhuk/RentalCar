@@ -1,0 +1,100 @@
+
+.react-datepicker {
+    border: 1px solid #3470ff;
+    border-radius: 12px;
+    overflow: hidden;
+
+}
+.react-datepicker__header {
+    border-bottom: none;
+    background: transparent;
+    padding: 12px 0 0 0;
+}
+.react-datepicker__current-month {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    text-align: center;
+    color: #101828;
+}
+.react-datepicker__week {
+    display: flex;
+
+
+}
+.react-datepicker__day{
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 120%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #101828;
+    width: 36px;
+    height: 32px;
+    border-radius: 32px;
+    transition: color 0.8s ease, background 0.8s ease;
+}
+
+.react-datepicker__month .react-datepicker__day:hover {
+  border-radius: 32px;
+  background: #8E929A;
+  color: #fff;
+}
+.react-datepicker__day-names {
+    border-bottom: 1px solid #3470ff;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+
+}
+.react-datepicker__day-name{
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 120%;
+    text-align: center;
+    color: #8d929a;
+    text-transform: uppercase;
+
+
+}
+.react-datepicker__navigation {
+    top: 8px;
+}
+
+.react-datepicker__month {
+    padding-top: 12px;
+}
+.react-datepicker__day--outside-month {
+    color: #8d929a;
+}
+.react-datepicker__day--selected {
+    background: #0B44CD;
+    color: #fff;
+    transition: color 0.8s ease, background 0.8s ease;
+}
+.react-datepicker__month .react-datepicker__day--selected:hover {
+    background: #8E929A;
+    color: #fff;
+}
+.react-datepicker__day--keyboard-selected {
+    background: transparent;
+
+}
+ .react-datepicker__day--today {
+    background: #3470ff;
+        color: #fff;
+        transition: background 0.8s ease;
+}
+.react-datepicker__month  .react-datepicker__day--today:hover {
+     background: #0B44CD;
+
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}

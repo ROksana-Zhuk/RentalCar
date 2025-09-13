@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import css from './BookingForm.module.css'
+import "./datepicker.css";
 
-
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function BookingForm() {
   const [startDate, setStartDate] = useState(null);
@@ -27,13 +28,41 @@ export default function BookingForm() {
         placeholder="Email"
       />
 
-      <DatePicker
-        selected={startDate}
-        onChange={date => setStartDate(date)}
-        placeholderText="Booking Date"
-        className={css.input}
-        calendarClassName={css.calendar}
-      />
+      <div className={css.wrapCalendar}>
+        <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Booking date"
+            className={css.input}
+            calendarStartDay={1}
+            formatWeekDay={(day) => day.slice(0, 3)}
+            renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+              <div className={css.headerCalendar}>
+                <button
+                  type="button"
+                  onClick={decreaseMonth}
+                  className={css.customArrow}
+                >
+                  <IoIosArrowBack color="#3470ff" size={20} />
+                </button>
+                <span className={css.span}>
+                  {date.toLocaleDateString("en-US", {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </span>
+                <button
+                  type="button"
+                  onClick={increaseMonth}
+                  className={css.customArrow}
+                >
+                  <IoIosArrowForward color="#3470ff" size={20} />
+                </button>
+              </div>
+            )}
+          />
+      </div>
+
 
       <textarea className={css.textarea}
         name="comment"
