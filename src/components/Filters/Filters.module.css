@@ -31,7 +31,25 @@
     color: inherit;
     width: 196px;
     box-sizing: border-box;
+    /* remove native arrow so only our custom arrow is visible */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
+    /* leave space on the right for the custom arrow */
+    padding-right: 48px;
 }
+
+/* hide native dropdown arrow in IE/Edge */
+.select::-ms-expand {
+    display: none;
+}
+
+/* ensure no clear/expand icons in some browsers */
+.select::-ms-clear {
+    display: none;
+}
+
 .inputGroup {
     display: flex;
     flex-direction: row;
@@ -141,6 +159,7 @@
     margin: 0;
 }
 .input[type="number"] {
+    appearance: textfield;
     -moz-appearance: textfield; /* keep the moz rule for firefox */
 }
 
@@ -173,14 +192,35 @@
     line-height: 20px;
 }
 
-/* make room for the visual prefix only for selects inside the wrapper */
+/* right-positioned arrow for selects */
+.selectArrow {
+    position: absolute;
+    right: 16px; /* position on the right and animate this arrow */
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transform-origin: center;
+    pointer-events: none; /* don't block clicks */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: inherit;
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1);
+    opacity: 0.95;
+}
+
+/* rotated state when the select's options are visible/open */
+.selectArrowOpen {
+    transform: translateY(-50%) rotate(180deg);
+}
+
 .selectWrapper .select {
-    /* when placeholder shown (invalid) keep value closer to left */
     padding-left: 16px;
 }
 
 /* when a value is chosen, leave space for the prefix */
-.selectWrapper .select:valid {
+.selectPadding .select:valid {
     padding-left: 48px;
 }
 
@@ -200,7 +240,7 @@
 }
 
 /* show prefix only when select has a chosen value */
-.selectWrapper .select:valid + .prefix {
+.selectWrapper .select:valid ~ .prefix {
     opacity: 1;
 }
 

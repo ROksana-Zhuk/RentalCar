@@ -39,6 +39,18 @@ export default function Filters() {
     });
   }, [filters]);
 
+  // UI state for whether each select's options are open (used to rotate the left arrow)
+  const [open, setOpen] = useState({ brand: false, price: false });
+
+  // Helper to mark a select as opened (cover mouse and keyboard interactions)
+  const markOpen = (key) => {
+    setOpen((s) => ({ ...s, [key]: true }));
+  };
+
+  const markClose = (key) => {
+    setOpen((s) => ({ ...s, [key]: false }));
+  };
+
   useEffect(() => {
     const getAllBrands = async () => {
       dispatch(setLoading(true));
@@ -83,33 +95,60 @@ export default function Filters() {
         <label className={css.label} htmlFor="brand">
           Car brand
         </label>
-        <select
-          id="brand"
-          name="brand"
-          className={css.select}
-          value={form.brand}
-          onChange={handleChange}
-        >
-          <option value="">Choose a brand</option>
-          {allBrands.map((brand) => (
-            <option key={brand} value={brand}>
-              {brand}
-            </option>
-          ))}
-        </select>
+        <div className={css.selectWrapper}>
+          <select
+            id="brand"
+            name="brand"
+            className={css.select}
+            value={form.brand}
+            onChange={(e) => {
+              handleChange(e);
+              // selecting a value closes the native options list in most browsers
+              markClose('brand');
+            }}
+            onFocus={() => markOpen('brand')}
+            onBlur={() => markClose('brand')}
+            onMouseDown={() => markOpen('brand')}
+            onKeyDown={(e) => {
+              // open-on-key for keyboard users (Space / ArrowDown)
+              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') markOpen('brand');
+            }}
+          >
+            <option value="">Choose a brand</option>
+            {allBrands.map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
+          </select>
+          <span className={`${css.selectArrow} ${open.brand ? css.selectArrowOpen : ''}`} aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </div>
       </div>
 
       <div className={css.filterBox}>
         <label className={css.label} htmlFor="price">
           Price / 1 hour
         </label>
-        <div className={css.selectWrapper}>
+        <div className={`${css.selectWrapper} ${css.selectPadding}`}>
           <select
             id="price"
             name="rentalPrice"
             className={css.select}
             value={form.rentalPrice}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              markClose('price');
+            }}
+            onFocus={() => markOpen('price')}
+            onBlur={() => markClose('price')}
+            onMouseDown={() => markOpen('price')}
+            onKeyDown={(e) => {
+              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') markOpen('price');
+            }}
             required
           >
             <option value="">Choose a price</option>
@@ -117,6 +156,11 @@ export default function Filters() {
               <option key={p} value={String(p)}>{String(p)}</option>
             ))}
           </select>
+          <span className={`${css.selectArrow} ${open.price ? css.selectArrowOpen : ''}`} aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+              <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
           <span className={css.prefix}>To $</span>
         </div>
       </div>
