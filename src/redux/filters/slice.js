@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   brand: null,
-  price: null,
-  mileageFrom: null,
-  mileageTo: null,
+  rentalPrice: null,
+  minMileage: null,
+  maxMileage: null,
 };
 
 const filtersSlice = createSlice({
@@ -16,13 +16,13 @@ const filtersSlice = createSlice({
       state.brand = action.payload;
     },
     setPrice: (state, action) => {
-      state.price = action.payload;
+      state.rentalPrice = action.payload;
     },
     setMileageFrom: (state, action) => {
-      state.mileageFrom = action.payload;
+      state.minMileage = action.payload;
     },
     setMileageTo: (state, action) => {
-      state.mileageTo = action.payload;
+      state.maxMileage = action.payload;
     },
     resetFilters: () => initialState,
   },

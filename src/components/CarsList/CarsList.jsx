@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import CarCard from "../CarCard/CarCard.jsx";
-import { selectCars } from "../../redux/car/selectors.js";
-import css from './CarList.module.css';
+import { selectCars } from "../../redux/cars/selectors.js";
+import css from './CarsList.module.css';
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn.jsx";
 
 

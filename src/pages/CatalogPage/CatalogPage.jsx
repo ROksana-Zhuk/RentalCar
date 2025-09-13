@@ -1,30 +1,35 @@
-import { useDispatch } from "react-redux";
-import CarList from "../../components/CarsList/CarsList.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCars } from "../../redux/cars/operations.js";
+import { useEffect } from "react";
 import Container from "../../components/Container/Container.jsx";
 import Filters from "../../components/Filters/Filters.jsx";
-import { useEffect } from "react";
-import { fetchCars } from "../../redux/car/operations.js";
+import CarsList from '../../components/CarsList/CarsList.jsx';
 import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn.jsx";
 
-
-
 export default function CatalogPage() {
+  const dispatch = useDispatch();
+  const { page, items, totalCars, loading } = useSelector((state) => state.cars);
+  const filters = useSelector((state) => state.filters);
 
-    const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCars());
+  }, [dispatch, page, filters]);
 
-    useEffect(() => {
-      dispatch(fetchCars());
-    }, [dispatch]);
+  const handleLoadMore = () => {
+    if (items.length < totalCars && !loading) {
+      dispatch({ type: "cars/setPage", payload: page + 1 });
+    }
+  };
 
-
-    return (
-      <section>
-        <Container>
-          <Filters />
-          <CarList/>
-
-            <LoadMoreBtn/>
-        </Container>
-      </section>
-    );
-  }
+  return (
+    <section>
+      <Container>
+        <Filters />
+        <CarsList cars={items} loading={loading} />
+        {items.length < totalCars && (
+          <LoadMoreBtn onClick={handleLoadMore} disabled={loading} />
+        )}
+      </Container>
+    </section>
+  );
+}

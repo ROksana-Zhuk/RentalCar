@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Container from "../../components/Container/Container.jsx";
 import { useEffect, useState } from "react";
-import { getCarDetails } from "../../services/getCarDetailsService.js";
+import { getCarDetails } from "../../services/carService.jsx";
 import BookingForm from "../../components/BookingForm/BookingForm.jsx";
 import DetailsCar from "../../components/DetailCar/DetailsCar.jsx";
 import css from './DetailsPage.module.css'

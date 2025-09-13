@@ -24,6 +24,15 @@
     padding: 12px 24px;
     border: none;
     background-color: #F7F7F7;
+    /* ensure select and prefix share same font characteristics */
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: inherit;
+    /* make width constant regardless of padding changes */
+    width: 196px; /* match other inputs */
+    box-sizing: border-box; /* include padding in width */
 }
 .inputGroup {
     display: flex;
@@ -72,4 +81,44 @@
 .button:hover,
 .button:focus {
     background-color: #0B44CD;
+}
+
+.selectWrapper {
+    position: relative;
+    display: inline-block;
+    /* ensure children inherit same font so prefix matches select value */
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* make room for the visual prefix only for selects inside the wrapper */
+.selectWrapper .select {
+    /* when placeholder shown (invalid) keep value closer to left */
+    padding-left: 16px;
+}
+
+/* when a value is chosen, leave space for the prefix */
+.selectWrapper .select:valid {
+    padding-left: 48px;
+}
+
+.prefix {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* don't block clicks */
+    /* inherit font styles so it matches the selected value */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+    color: inherit;
+    opacity: 0;
+}
+
+/* show prefix only when select has a chosen value */
+.selectWrapper .select:valid + .prefix {
+    opacity: 1;
 }

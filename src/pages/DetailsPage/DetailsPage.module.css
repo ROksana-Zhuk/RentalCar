@@ -1,6 +1,7 @@
 .wrap {
     display: flex;
     flex-direction: row;
+    gap: 72px;
 }
 
 .box {
@@ -13,7 +14,6 @@
     border-radius: 18.74px;
     margin-left: 0;
     margin-top: 84px;
-    margin-right: 72px;
     margin-bottom: 40px;
 }
 

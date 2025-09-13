@@ -34,10 +34,8 @@ export default function CarCard ({ car }) {
       <div className={css.info}>
         <p className={css.text}>{formatAddress(car.address)} | {car.rentalCompany} |</p>
         <p className={css.text}>{car.type} | {formatMileage(car.mileage)}</p>
-
         </div>
-        <button className={css.button} onClick={() => navigate("/catalog/:id")}>Read more</button>
-
+        <button className={css.button} onClick={() => navigate(`/catalog/${car.id}`)}>Read more</button>
       </div>
   );
 }
