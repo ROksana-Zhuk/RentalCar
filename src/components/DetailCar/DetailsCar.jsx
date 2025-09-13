@@ -1,5 +1,13 @@
 import css from './DetailsCar.module.css'
 
+import {
+    BsCheckCircle,
+    BsCalendar2Week,
+    BsCarFront,
+    BsFuelPump,
+    BsGear,
+} from "react-icons/bs";
+import { IoLocationOutline } from "react-icons/io5";
 
 export default function DetailsCar( { car }) {
 
@@ -28,7 +36,10 @@ return (
 
 
           <p className={css.text}>
-            <span className={css.inlineBlock}>{formatAddress(car.address)}</span>
+            <IoLocationOutline />
+            <span className={css.inlineBlock}>
+               {formatAddress(car.address)}
+            </span>
             <span>Mileage: {formatMileage(car.mileage)}</span>
           </p>
 
@@ -40,22 +51,41 @@ return (
         <h3 className={css.subtitle}>Rental Conditions:</h3>
           <ul className={css.desc}>
             {car.rentalConditions.map((condition, count) => (
-              <li key={count}> {condition}</li>
+              <li key={count} className={css.item}>
+                <BsCheckCircle className={css.icon} />
+                <span className={css.itemText}> {condition}</span>
+              </li>
             ))}
           </ul>
 
+
         <h3 className={css.subtitle}>Car Specifications:</h3>
         <div className={css.textBlock}>
-            <p className={css.text}>Year: {car.year}</p>
-            <p className={css.text}>Type: {car.type}</p>
-            <p className={css.text}>Fuel Consumption: {car.fuelConsumption}</p>
-            <p className={css.text}>Engine Size: {car.engineSize}</p>
+            <div className={css.specItem}>
+              <BsCalendar2Week className={css.icon} />
+              <span className={css.specText}>Year: {car.year}</span>
+            </div>
+            <div className={css.specItem}>
+              <BsCarFront className={css.icon} />
+              <span className={css.specText}>Type: {car.type}</span>
+            </div>
+            <div className={css.specItem}>
+              <BsFuelPump className={css.icon} />
+              <span className={css.specText}>Fuel Consumption: {car.fuelConsumption}</span>
+            </div>
+            <div className={css.specItem}>
+              <BsGear className={css.icon} />
+              <span className={css.specText}>Engine Size: {car.engineSize}</span>
+            </div>
         </div>
 
         <h3 className={css.subtitle}>Accessories and functionalities:</h3>
         <ul className={css.desc}>
             {accessoriesAndFunctionalities.map((item, count) => (
-              <li key={count}> {item}</li>
+              <li key={count} className={css.item}>
+                <BsCheckCircle className={css.icon} />
+                <span className={css.itemText}>{item}</span>
+              </li>
             ))}
         </ul>
     </div>

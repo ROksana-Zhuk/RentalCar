@@ -1,4 +1,3 @@
-
 .box {
     display: flex;
     flex-direction: column;
@@ -20,6 +19,8 @@
 .inlineBlock {
     display: inline-block;
     margin-right: 16px;
+    margin-left: 4px;
+
   }
 
 
@@ -56,3 +57,28 @@
     gap: 16px;
     margin-bottom: 110px;
   }
+
+.item {
+    display: flex;
+    gap: 8px;
+}
+
+.icon {
+    font-size: 16px;
+    transform: translateY(2px);
+    flex-shrink: 0;
+}
+
+.itemText {
+    display: block;
+}
+
+.specItem {
+    display: flex;
+    align-items: baseline; /* align icon with the text baseline so it won't sit above the text */
+    gap: 12px; /* horizontal space between icon and text */
+}
+
+.specText {
+    display: inline-block;
+}
