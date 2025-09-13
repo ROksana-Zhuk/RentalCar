@@ -3,6 +3,7 @@ import carsReducer from "./cars/slice.js";
 // import brandsReducer from "./brands/slice.js";
 import filtersReducer from './filters/slice.js';
 import favoriteReducer from './favorite/slice.js';
+import uiReducer from './ui/slice.js';
 import {
   persistStore,
   persistReducer,
@@ -28,6 +29,7 @@ export const store = configureStore({
     cars: carsReducer,
     filters: filtersReducer,
     favorites: persistedFavoritesReducer,
+    ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

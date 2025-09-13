@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { setLoading } from '../ui/slice.js';
 
 axios.defaults.baseURL = 'https://car-rental-api.goit.global';
 
@@ -11,6 +12,8 @@ export const fetchCars = createAsyncThunk(
     const { brand, rentalPrice, minMileage, maxMileage } = state.filters;
 
     try {
+      thunkAPI.dispatch(setLoading(true));
+
       const params = {
         page,
         limit: 12,
@@ -37,6 +40,8 @@ export const fetchCars = createAsyncThunk(
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
+    } finally {
+      thunkAPI.dispatch(setLoading(false));
     }
   }
 );

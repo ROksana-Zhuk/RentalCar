@@ -1,0 +1,68 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scene {
+  position: relative;
+  width: 320px;
+  height: 80px;
+}
+
+.road {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg,#444 50%, #ccc 50%);
+  background-size: 24px 8px;
+  border-radius: 4px;
+}
+
+.car {
+  position: absolute;
+  left: -120px;
+  top: 0;
+  width: 120px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: drive 1.6s linear infinite;
+  pointer-events: none;
+}
+
+.body {
+  width: 86px;
+  height: 40px;
+  background: linear-gradient(180deg,#3470FF,#0B44CD);
+  border-radius: 10px 10px 6px 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.wheel {
+  width: 18px;
+  height: 18px;
+  background: #222;
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 0 rgba(255,255,255,0.06);
+  transform-origin: center;
+  animation: spin 0.4s linear infinite;
+}
+
+@keyframes drive {
+  0% { transform: translateX(0); left: -140px; }
+  100% { transform: translateX(420px); left: -140px; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

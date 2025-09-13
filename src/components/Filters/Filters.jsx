@@ -10,6 +10,7 @@ import { resetCars, setPage } from '../../redux/cars/slice.js';
 import css from './Filters.module.css';
 import { getBrandCar } from '../../services/carService.jsx';
 import { useEffect, useState } from 'react';
+import { setLoading } from '../../redux/ui/slice.js';
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -17,8 +18,6 @@ export default function Filters() {
 
   console.log('filters:', filters);
 
-
-  const [isLoading, setIsLoading] = useState(false);
   const [allBrands, setAllBrands] = useState([]);
 
   // Local form state — do not dispatch on every change
@@ -41,18 +40,18 @@ export default function Filters() {
 
   useEffect(() => {
     const getAllBrands = async () => {
-      setIsLoading(true);
+      dispatch(setLoading(true));
       try {
         const brands = await getBrandCar();
         setAllBrands(brands);
       } catch (error) {
         console.error('Error fetching brands:', error);
       } finally {
-        setIsLoading(false);
+        dispatch(setLoading(false));
       }
     };
     getAllBrands();
-  }, []);
+  }, [dispatch]);
 
   // Local change handlers
   const handleBrandChange = (e) => {

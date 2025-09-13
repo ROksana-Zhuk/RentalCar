@@ -5,29 +5,31 @@ import { getCarDetails } from "../../services/carService.jsx";
 import BookingForm from "../../components/BookingForm/BookingForm.jsx";
 import DetailsCar from "../../components/DetailCar/DetailsCar.jsx";
 import css from './DetailsPage.module.css'
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../redux/ui/slice.js';
 
 
 export default function DetailsPage() {
 
     const { id } = useParams();
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
     const [carDetails, setCarDetails] = useState(null)
 
     useEffect(() => {
       const fetchСarData = async () => {
-          setIsLoading(true);
+          dispatch(setLoading(true));
           try {
               const carData = await getCarDetails(id);
               setCarDetails(carData);
           } catch (error) {
               console.error('Error fetching car details:', error);
           } finally {
-              setIsLoading(false);
+              dispatch(setLoading(false));
           }
       };
 
       fetchСarData();
-    }, [id]);
+    }, [id, dispatch]);
 
 
   return (
