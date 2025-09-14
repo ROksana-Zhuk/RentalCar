@@ -1,0 +1,17 @@
+/* Minimal global reset to ensure consistent margins/paddings across environments */
+*,*::before,*::after{box-sizing:border-box}
+html,body,#root{height:100%;margin:0;padding:0}
+body{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.4;
+}
+/* Remove default margins/paddings for common typographic elements that often differ between browsers */
+h1,h2,h3,h4,h5,h6,p,ul,ol,figure,blockquote{margin:0;padding:0}
+/* Make images responsive */
+img,svg{max-width:100%;height:auto;display:block}
+/* Optional: set a sane default for lists */
+ul,ol{list-style-position:inside}
+
+/* Utility: root container spacing helper if needed */
+.container{max-width:1200px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
