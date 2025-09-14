@@ -11,16 +11,11 @@
 
 .title {
    font-weight: 600;
-   margin-top: 0px;
    font-size: 24px;
    line-height: 1.33;
    margin-bottom: 8px;
 }
 
-.text {
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
 .inlineBlock {
     display: inline-block;
     margin-right: 16px;
@@ -43,7 +38,6 @@
     font-size: 20px;
     line-height: 1.2;
     margin-bottom: 20px;
-    margin-top: 0px;
 }
 
 
@@ -55,8 +49,6 @@
     font-size: 16px;
     line-height: 1.33;
     margin-bottom: 110px;
-    margin-top: 0px;
-    padding: 0;
 }
 
 .textBlock {
