@@ -1,4 +1,3 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -27,6 +26,8 @@ const filtersSlice = createSlice({
     resetFilters: () => initialState,
   },
 });
+
+export const priceOptions = [10, 20, 30, 40, 50, 60, 70, 80];
 
 export const { setBrand, setPrice, setMileageFrom, setMileageTo, resetFilters } = filtersSlice.actions;
 export default filtersSlice.reducer;

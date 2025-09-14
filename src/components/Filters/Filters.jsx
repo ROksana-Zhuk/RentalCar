@@ -5,18 +5,23 @@ import {
   setPrice,
   setMileageFrom,
   setMileageTo,
+  priceOptions,
 } from '../../redux/filters/slice.js';
 import { resetCars, setPage } from '../../redux/cars/slice.js';
 import css from './Filters.module.css';
 import { getBrandCar } from '../../services/carService.jsx';
 import { useEffect, useState, useRef } from 'react';
 import { setLoading } from '../../redux/ui/slice.js';
-
-const priceOptions = [30, 40, 50, 60, 70, 80];
+import { fetchCars } from '../../redux/cars/operations.js';
 
 export default function Filters() {
   const dispatch = useDispatch();
   const filters = useSelector(selectFilters);
+  const carsLoading = useSelector((state) => state.cars.loading);
+  const loading = carsLoading;
+
+  const isSearchingRef = useRef(false);
+  const [isSearching, setIsSearching] = useState(false);
 
   const [allBrands, setAllBrands] = useState([]);
 
@@ -114,8 +119,13 @@ export default function Filters() {
     setForm((s) => ({ ...s, [name]: value }));
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
+
+    if (carsLoading || isSearchingRef.current) return; // guard rapid clicks
+
+    isSearchingRef.current = true;
+    setIsSearching(true);
 
     dispatch(setBrand(form.brand || null));
     dispatch(setPrice(form.rentalPrice || null));
@@ -128,6 +138,14 @@ export default function Filters() {
 
     dispatch(resetCars());
     dispatch(setPage(1));
+
+    try {
+      await dispatch(fetchCars()).unwrap();
+    } catch (err) {
+    } finally {
+      isSearchingRef.current = false;
+      setIsSearching(false);
+    }
   };
 
   return (
@@ -243,7 +261,7 @@ export default function Filters() {
         </div>
       </div>
 
-      <button type="submit" className={css.button}>
+      <button type="submit" className={css.button} disabled={loading || isSearching} aria-busy={loading || isSearching}>
         Search
       </button>
     </form>

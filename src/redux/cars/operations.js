@@ -17,9 +17,14 @@ export const fetchCars = createAsyncThunk(
       const params = {
         page,
         limit: 12,
-        brand,
-        rentalPrice,
       };
+
+      if (brand !== null && brand !== undefined && brand !== '') params.brand = brand;
+
+      if (rentalPrice !== null && rentalPrice !== undefined && rentalPrice !== '') {
+        const rp = Number(rentalPrice);
+        if (!Number.isNaN(rp)) params.rentalPrice = rp;
+      }
 
       const kmToMiles = (km) => {
         if (km === null || km === undefined || km === '') return undefined;
@@ -32,7 +37,7 @@ export const fetchCars = createAsyncThunk(
       if (minMiles !== undefined) params.minMileage = minMiles;
       if (maxMiles !== undefined) params.maxMileage = maxMiles;
 
-      const res = await axios.get("/cars", { params });
+      const res = await axios.get("/cars", { params, signal: thunkAPI.signal });
 
       return {
         cars: res.data.cars,
