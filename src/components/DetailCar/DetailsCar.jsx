@@ -44,7 +44,7 @@ return (
           </p>
 
           <h2 className={css.price}> ${car.rentalPrice}</h2>
-          <p>{car.description}</p>
+          <p className={css.text}>{car.description}</p>
         </div>
 
 
