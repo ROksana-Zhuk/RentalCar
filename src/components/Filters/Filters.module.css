@@ -21,7 +21,6 @@
 }
 .select {
     border-radius: 12px;
-    padding: 12px 24px;
     border: none;
     background-color: #F7F7F7;
     font-family: inherit;
@@ -35,7 +34,7 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: none;
-    padding-right: 48px;
+    display: block;
 }
 
 .select::-ms-expand {
@@ -44,6 +43,81 @@
 
 .select::-ms-clear {
     display: none;
+}
+
+.select :global(.react-select__control) {
+    min-height: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.select :global(.react-select__value-container) {
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.select :global(.react-select__single-value) {
+    margin: 0;
+}
+
+.select :global(.react-select__indicators) {
+    height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.select :global(.react-select__indicator-separator) {
+  width: 0;
+  margin: 0;
+}
+
+/* Custom scrollbar for react-select menu list (scoped) */
+.select :global(.react-select__menu-list) {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #cfcfcf transparent;
+}
+
+.select :global(.react-select__menu-list)::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.select :global(.react-select__menu-list)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.select :global(.react-select__menu-list)::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+  border-radius: 8px;
+  border: 2px solid transparent; /* creates inner padding */
+  background-clip: padding-box;
+}
+
+.select :global(.react-select__menu-list)::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
+
+/* react-select option styles: unselected text color and no backgrounds */
+.select :global(.react-select__option) {
+  color: #8D929A;
+  background: transparent;
+}
+
+.select :global(.react-select__option:hover),
+.select :global(.react-select__option:active),
+.select :global(.react-select__option--is-focused) {
+  background: transparent !important;
+  color: #8D929A !important;
+}
+
+.select :global(.react-select__option--is-selected) {
+    background: transparent !important;
+    color: #000000 !important;
 }
 
 .inputGroup {
@@ -204,9 +278,10 @@
     padding-left: 48px;
 }
 
+/* prefix shown for price select */
 .prefix {
     position: absolute;
-    left: 16px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
@@ -215,11 +290,12 @@
     line-height: inherit;
     font-weight: inherit;
     color: inherit;
-    opacity: 0;
+    opacity: 1;
 }
 
-.selectWrapper .select:valid ~ .prefix {
-    opacity: 1;
+/* increase left padding for selects that have a visible prefix */
+.hasPrefix :global(.react-select__control) {
+    padding-left: 26px;
 }
 
 .inputPrefixFrom {
@@ -236,4 +312,12 @@
 
 .inputTo {
     padding-left: 48px;
+}
+
+.brandSelect {
+    width: 204px;
+}
+
+.priceSelect {
+    width: 196px;
 }

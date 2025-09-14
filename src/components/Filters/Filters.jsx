@@ -13,6 +13,7 @@ import { getBrandCar } from '../../services/carService.jsx';
 import { useEffect, useState, useRef } from 'react';
 import { setLoading } from '../../redux/ui/slice.js';
 import { fetchCars } from '../../redux/cars/operations.js';
+import Select from 'react-select';
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -42,62 +43,6 @@ export default function Filters() {
   }, [filters]);
 
   const [open, setOpen] = useState({ brand: false, price: false });
-
-  const justOpened = useRef({ brand: false, price: false });
-  const closeTimeouts = useRef({ brand: null, price: null });
-  const brandWrapperRef = useRef(null);
-  const priceWrapperRef = useRef(null);
-
-  const clearClose = (key) => {
-    const t = closeTimeouts.current[key];
-    if (t) {
-      clearTimeout(t);
-      closeTimeouts.current[key] = null;
-    }
-  };
-
-  const setOpenTemporarily = (key) => {
-    clearClose(key);
-    setOpen((s) => ({ ...s, [key]: true }));
-    justOpened.current[key] = true;
-    setTimeout(() => {
-      justOpened.current[key] = false;
-    }, 500);
-  };
-
-  const closeSelect = (key, immediate = false) => {
-    clearClose(key);
-    if (immediate) {
-      setOpen((s) => ({ ...s, [key]: false }));
-      return;
-    }
-
-    closeTimeouts.current[key] = setTimeout(() => {
-      setOpen((s) => ({ ...s, [key]: false }));
-      closeTimeouts.current[key] = null;
-    }, 600);
-  };
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (open.brand && brandWrapperRef.current && !brandWrapperRef.current.contains(e.target)) {
-        closeSelect('brand', true);
-      }
-      if (open.price && priceWrapperRef.current && !priceWrapperRef.current.contains(e.target)) {
-        closeSelect('price', true);
-      }
-    };
-
-    if (open.brand || open.price) {
-      document.addEventListener('mousedown', handler);
-      document.addEventListener('touchstart', handler);
-      return () => {
-        document.removeEventListener('mousedown', handler);
-        document.removeEventListener('touchstart', handler);
-      };
-    }
-    return undefined;
-  }, [open.brand, open.price, closeSelect]);
 
   useEffect(() => {
     const getAllBrands = async () => {
@@ -148,45 +93,42 @@ export default function Filters() {
     }
   };
 
+  // map options for react-select
+  const brandOptions = allBrands.map((b) => ({ value: b, label: b }));
+  const priceOptionsSelect = priceOptions.map((p) => ({ value: String(p), label: String(p) }));
+
+  const DropdownIndicator = (props) => {
+    const isOpen = props.selectProps.menuIsOpen;
+    return (
+      <span className={`${css.selectArrow} ${isOpen ? css.selectArrowOpen : ''}`} aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+    );
+  };
+
   return (
     <form className={css.filters} onSubmit={handleSearch} noValidate>
       <div className={css.filterBox}>
         <label className={css.label} htmlFor="brand">
           Car brand
         </label>
-        <div className={css.selectWrapper} ref={brandWrapperRef}>
-          <select
-            id="brand"
+        <div className={css.selectWrapper}>
+          <Select
+            inputId="brand"
             name="brand"
-            className={css.select}
-            value={form.brand}
-            onChange={(e) => {
-              handleChange(e);
-              closeSelect('brand', true);
-            }}
-            onMouseDown={() => setOpenTemporarily('brand')}
-            onFocus={() => setOpenTemporarily('brand')}
-            onBlur={() => closeSelect('brand', !justOpened.current.brand)}
-            onClick={(e) => {
-              if (justOpened.current.brand) return;
-              setOpen((s) => ({ ...s, brand: !s.brand }));
-            }}
-            onKeyDown={(e) => {
-              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') setOpenTemporarily('brand');
-            }}
-          >
-            <option value="">Choose a brand</option>
-            {allBrands.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
-          <span className={`${css.selectArrow} ${open.brand ? css.selectArrowOpen : ''}`} aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-              <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
+            classNamePrefix="react-select"
+            className={`${css.select} ${css.brandSelect}`}
+            options={brandOptions}
+            value={form.brand ? { value: form.brand, label: form.brand } : null}
+            onChange={(opt) => setForm((s) => ({ ...s, brand: opt ? opt.value : '' }))}
+            onMenuOpen={() => setOpen((s) => ({ ...s, brand: true }))}
+            onMenuClose={() => setOpen((s) => ({ ...s, brand: false }))}
+            components={{ DropdownIndicator }}
+            placeholder="Choose a brand"
+            isClearable={false}
+          />
         </div>
       </div>
 
@@ -194,39 +136,24 @@ export default function Filters() {
         <label className={css.label} htmlFor="price">
           Price / 1 hour
         </label>
-        <div className={`${css.selectWrapper} ${css.selectPadding}`} ref={priceWrapperRef}>
-          <select
-            id="price"
+        <div className={`${css.selectWrapper} ${css.selectPadding}`}>
+          <Select
+            inputId="price"
             name="rentalPrice"
-            className={css.select}
-            value={form.rentalPrice}
-            onChange={(e) => {
-              handleChange(e);
-              closeSelect('price', true);
-            }}
-            onMouseDown={() => setOpenTemporarily('price')}
-            onFocus={() => setOpenTemporarily('price')}
-            onBlur={() => closeSelect('price', !justOpened.current.price)}
-            onClick={(e) => {
-              if (justOpened.current.price) return;
-              setOpen((s) => ({ ...s, price: !s.price }));
-            }}
-            onKeyDown={(e) => {
-              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') setOpenTemporarily('price');
-            }}
-            required
-          >
-            <option value="">Choose a price</option>
-            {priceOptions.map((p) => (
-              <option key={p} value={String(p)}>{String(p)}</option>
-            ))}
-          </select>
-          <span className={`${css.selectArrow} ${open.price ? css.selectArrowOpen : ''}`} aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-              <path d="M7 10l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-          <span className={css.prefix}>To $</span>
+            classNamePrefix="react-select"
+            className={`${css.select} ${css.priceSelect} ${form.rentalPrice ? css.hasPrefix : ''}`}
+            options={priceOptionsSelect}
+            value={form.rentalPrice ? { value: String(form.rentalPrice), label: String(form.rentalPrice) } : null}
+            onChange={(opt) => setForm((s) => ({ ...s, rentalPrice: opt ? opt.value : '' }))}
+            onMenuOpen={() => setOpen((s) => ({ ...s, price: true }))}
+            onMenuClose={() => setOpen((s) => ({ ...s, price: false }))}
+            components={{ DropdownIndicator }}
+            placeholder="Choose a price"
+            isClearable={false}
+          />
+
+          {/* show prefix when a real price is selected */}
+          {form.rentalPrice ? <span className={css.prefix}>To $</span> : null}
         </div>
       </div>
 
