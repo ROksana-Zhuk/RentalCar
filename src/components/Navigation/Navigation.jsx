@@ -4,11 +4,6 @@ import css from './Navigation.module.css';
 
 export default function Navigation() {
 
-
-
-//   const buildLinkClass = ({ isActive }) =>
-//     isActive ? 'nav-link active' : 'nav-link';
-
 const buildLinkClass = ({ isActive }) =>
     isActive ? `${css["nav-link"]} ${css.active}` : css["nav-link"];
 

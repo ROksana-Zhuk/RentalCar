@@ -2,9 +2,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+
+:root {
+    --font-base: 'Manrope', sans-serif;
+
+    --fs-sm: 12px;
+    --fs-md: 16px;
+    --fs-lg: 24px;
+    --fs-xl: 60px;
+
+    --lh-sm: 16px;
+    --lh-md: 20px;
+    --lh-lg: 32px;
+    --lh-xl: 72px;
+
+    --color-text: #101828;
+    --color-bg: #FFFFFF;
+
+    --radius: 12px;
+
+    font-family: var(--font-base);
+    font-size: var(--fs-md);
+    line-height: var(--lh-md);
+    font-weight: 400;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
 html {
   overflow-y: scroll;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -34,6 +67,18 @@ img {
   height: auto;
   margin: 0 auto;
 }
+
 textarea {
   resize: none;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-base);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+  button, input, textarea, select {
+    font-family: inherit;
 }

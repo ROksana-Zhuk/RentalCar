@@ -12,7 +12,6 @@ import { getBrandCar } from '../../services/carService.jsx';
 import { useEffect, useState, useRef } from 'react';
 import { setLoading } from '../../redux/ui/slice.js';
 
-// Price options can live outside the component to avoid re-creation on each render
 const priceOptions = [30, 40, 50, 60, 70, 80];
 
 export default function Filters() {
@@ -21,7 +20,6 @@ export default function Filters() {
 
   const [allBrands, setAllBrands] = useState([]);
 
-  // Consolidated local form state — do not dispatch on every change
   const [form, setForm] = useState({
     brand: filters.brand ?? '',
     rentalPrice: filters.rentalPrice ?? '',
@@ -29,7 +27,6 @@ export default function Filters() {
     maxMileage: filters.maxMileage ?? '',
   });
 
-  // Keep local inputs in sync if filters in the store change externally
   useEffect(() => {
     setForm({
       brand: filters.brand ?? '',
@@ -39,11 +36,8 @@ export default function Filters() {
     });
   }, [filters]);
 
-  // UI state for whether each select's options are open (used to rotate the left arrow)
   const [open, setOpen] = useState({ brand: false, price: false });
 
-  // Simple helper: when a select receives focus/opened we set open=true and mark it as justOpened
-  // for a short time so the subsequent click that triggered the focus doesn't immediately toggle it off.
   const justOpened = useRef({ brand: false, price: false });
   const closeTimeouts = useRef({ brand: null, price: null });
   const brandWrapperRef = useRef(null);
@@ -58,11 +52,9 @@ export default function Filters() {
   };
 
   const setOpenTemporarily = (key) => {
-    // clear any scheduled close
     clearClose(key);
     setOpen((s) => ({ ...s, [key]: true }));
     justOpened.current[key] = true;
-    // keep the 'just opened' window a bit longer to ignore the opening click
     setTimeout(() => {
       justOpened.current[key] = false;
     }, 500);
@@ -74,8 +66,7 @@ export default function Filters() {
       setOpen((s) => ({ ...s, [key]: false }));
       return;
     }
-    // delay closing slightly to avoid cases where blur fires when native options appear
-    // increase delay so arrow remains rotated while native dropdown is visible
+
     closeTimeouts.current[key] = setTimeout(() => {
       setOpen((s) => ({ ...s, [key]: false }));
       closeTimeouts.current[key] = null;
@@ -101,7 +92,7 @@ export default function Filters() {
       };
     }
     return undefined;
-  }, [open.brand, open.price]);
+  }, [open.brand, open.price, closeSelect]);
 
   useEffect(() => {
     const getAllBrands = async () => {
@@ -118,13 +109,11 @@ export default function Filters() {
     getAllBrands();
   }, [dispatch]);
 
-  // Generic change handler for all inputs/selects
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((s) => ({ ...s, [name]: value }));
   };
 
-  // Submit: write local values to Redux and trigger search (reset cars + set page)
   const handleSearch = (e) => {
     e.preventDefault();
 
@@ -155,19 +144,16 @@ export default function Filters() {
             value={form.brand}
             onChange={(e) => {
               handleChange(e);
-              // selecting a value closes the native options list in most browsers
               closeSelect('brand', true);
             }}
             onMouseDown={() => setOpenTemporarily('brand')}
             onFocus={() => setOpenTemporarily('brand')}
             onBlur={() => closeSelect('brand', !justOpened.current.brand)}
             onClick={(e) => {
-              // If the select has just been opened via focus (the opening click), ignore that click.
               if (justOpened.current.brand) return;
               setOpen((s) => ({ ...s, brand: !s.brand }));
             }}
             onKeyDown={(e) => {
-              // open-on-key for keyboard users (Space / ArrowDown)
               if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') setOpenTemporarily('brand');
             }}
           >

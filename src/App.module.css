@@ -14,7 +14,7 @@
   --lh-xl: 72px;
 
   --color-text: #101828;
-  --color-bg: #fbfcf8;
+  --color-bg: #FFFFFF;
 
   --radius: 12px;
 
@@ -43,10 +43,4 @@ body {
 
 body.skroll {
   overflow: hidden;
-}
-
-#root {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 2rem;
 }

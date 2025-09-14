@@ -33,8 +33,6 @@ return (
     <div className={css.box}>
         <div className={css.wrapper}>
           <h2 className={css.title}>{car.brand} {car.model}, {car.year}</h2>
-
-
           <p className={css.text}>
             <IoLocationOutline />
             <span className={css.inlineBlock}>
@@ -42,7 +40,6 @@ return (
             </span>
             <span>Mileage: {formatMileage(car.mileage)}</span>
           </p>
-
           <h2 className={css.price}> ${car.rentalPrice}</h2>
           <p className={css.text}>{car.description}</p>
         </div>

@@ -18,14 +18,11 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/catalog/:id" element={<DetailsPage/>} />
-            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </Suspense>
       </Layout>
-
     </>
   )
 }
-
 
 export default App

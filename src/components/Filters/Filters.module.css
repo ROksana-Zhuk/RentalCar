@@ -31,21 +31,17 @@
     color: inherit;
     width: 196px;
     box-sizing: border-box;
-    /* remove native arrow so only our custom arrow is visible */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: none;
-    /* leave space on the right for the custom arrow */
     padding-right: 48px;
 }
 
-/* hide native dropdown arrow in IE/Edge */
 .select::-ms-expand {
     display: none;
 }
 
-/* ensure no clear/expand icons in some browsers */
 .select::-ms-clear {
     display: none;
 }
@@ -62,24 +58,21 @@
 .inputWrapper {
     position: relative;
     display: inline-block;
-    width: 160px; /* match input width */
-    /* set explicit font metrics here so prefix and input match exactly */
+    width: 160px;
     font-family: inherit;
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
     color: inherit;
 
-    /* spacing variables for predictable alignment */
-    --prefix-left: 12px;     /* distance from wrapper left to prefix */
-    --prefix-ch: 5ch;        /* reserve approx 5 characters width for prefix (reduced) */
-    --prefix-gap: 8px;       /* gap between prefix and typed text */
+    --prefix-left: 12px;
+    --prefix-ch: 5ch;
+    --prefix-gap: 8px;
 }
 
 .inputWrapper .input {
     width: 100%;
     box-sizing: border-box;
-    /* ensure input text has explicit font rules so prefix can inherit them */
     font-family: inherit;
     font-size: 16px;
     line-height: 20px;
@@ -93,12 +86,10 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    /* reserve a fixed width (same as --prefix-ch) and right-align text so labels line up */
     display: inline-block;
     width: var(--prefix-ch);
     text-align: right;
     padding-right: 6px;
-    /* inherit font props from wrapper */
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
@@ -114,7 +105,6 @@
     padding: 12px;
     width: 160px;
     height: 44px;
-    /* ensure number input text starts from the left padding, not right-aligned */
     text-align: left;
 }
 
@@ -123,13 +113,11 @@
     box-shadow: none;
 }
 
-/* keep an accessible focus indicator for keyboard users */
 .input:focus-visible {
     outline: none;
     outline-offset: none;
 }
 
-/* update selectors to target inputs inside wrappers */
 .inputGroup .inputWrapper:first-of-type .input {
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
@@ -141,9 +129,6 @@
     border-bottom-right-radius: 12px;
 }
 
-/* Make sure inputs inside the inputGroup wrappers use exact padding-left and full width
-   to align the typed text with the visual prefix. This selector is more specific than
-   the general .input rule so it overrides conflicting properties. */
 .inputGroup .inputWrapper .input {
     padding-top: 12px;
     padding-right: 12px;
@@ -152,7 +137,6 @@
     box-sizing: border-box;
 }
 
-/* remove default number input spin buttons to avoid layout shifts */
 .input[type="number"]::-webkit-outer-spin-button,
 .input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -160,7 +144,7 @@
 }
 .input[type="number"] {
     appearance: textfield;
-    -moz-appearance: textfield; /* keep the moz rule for firefox */
+    -moz-appearance: textfield;
 }
 
 .button {
@@ -186,20 +170,18 @@
 .selectWrapper {
     position: relative;
     display: inline-block;
-    /* ensure children inherit same font so prefix matches select value */
     font-family: inherit;
     font-size: 16px;
     line-height: 20px;
 }
 
-/* right-positioned arrow for selects */
 .selectArrow {
     position: absolute;
-    right: 16px; /* position on the right and animate this arrow */
+    right: 16px;
     top: 50%;
     transform: translateY(-50%) rotate(0deg);
     transform-origin: center;
-    pointer-events: none; /* don't block clicks */
+    pointer-events: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -210,7 +192,6 @@
     opacity: 0.95;
 }
 
-/* rotated state when the select's options are visible/open */
 .selectArrowOpen {
     transform: translateY(-50%) rotate(180deg);
 }
@@ -219,7 +200,6 @@
     padding-left: 16px;
 }
 
-/* when a value is chosen, leave space for the prefix */
 .selectPadding .select:valid {
     padding-left: 48px;
 }
@@ -229,8 +209,7 @@
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; /* don't block clicks */
-    /* inherit font styles so it matches the selected value */
+    pointer-events: none;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
@@ -239,7 +218,6 @@
     opacity: 0;
 }
 
-/* show prefix only when select has a chosen value */
 .selectWrapper .select:valid ~ .prefix {
     opacity: 1;
 }

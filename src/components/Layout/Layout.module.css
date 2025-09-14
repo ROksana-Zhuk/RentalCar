@@ -9,14 +9,12 @@
   @media (min-width: 768px) {
       .page {
           max-width: 768px;
-
       }
   }
 
   @media (min-width: 1440px) {
       .page {
           max-width: 1440px;
-
       }
   }
 
