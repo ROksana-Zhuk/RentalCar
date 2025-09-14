@@ -36,3 +36,5 @@ RentalCar is a small React app that shows cars for rent. The app helps users fin
 - Save cars to your favorites list if you want to keep them.
 
 ## Author
+Oksana Zhuk - Junior Software Developer.
+Email: roksana.zhuk@gmail.com
