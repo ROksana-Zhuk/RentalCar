@@ -9,7 +9,7 @@ import {
 import { resetCars, setPage } from '../../redux/cars/slice.js';
 import css from './Filters.module.css';
 import { getBrandCar } from '../../services/carService.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { setLoading } from '../../redux/ui/slice.js';
 
 // Price options can live outside the component to avoid re-creation on each render
@@ -42,14 +42,66 @@ export default function Filters() {
   // UI state for whether each select's options are open (used to rotate the left arrow)
   const [open, setOpen] = useState({ brand: false, price: false });
 
-  // Helper to mark a select as opened (cover mouse and keyboard interactions)
-  const markOpen = (key) => {
-    setOpen((s) => ({ ...s, [key]: true }));
+  // Simple helper: when a select receives focus/opened we set open=true and mark it as justOpened
+  // for a short time so the subsequent click that triggered the focus doesn't immediately toggle it off.
+  const justOpened = useRef({ brand: false, price: false });
+  const closeTimeouts = useRef({ brand: null, price: null });
+  const brandWrapperRef = useRef(null);
+  const priceWrapperRef = useRef(null);
+
+  const clearClose = (key) => {
+    const t = closeTimeouts.current[key];
+    if (t) {
+      clearTimeout(t);
+      closeTimeouts.current[key] = null;
+    }
   };
 
-  const markClose = (key) => {
-    setOpen((s) => ({ ...s, [key]: false }));
+  const setOpenTemporarily = (key) => {
+    // clear any scheduled close
+    clearClose(key);
+    setOpen((s) => ({ ...s, [key]: true }));
+    justOpened.current[key] = true;
+    // keep the 'just opened' window a bit longer to ignore the opening click
+    setTimeout(() => {
+      justOpened.current[key] = false;
+    }, 500);
   };
+
+  const closeSelect = (key, immediate = false) => {
+    clearClose(key);
+    if (immediate) {
+      setOpen((s) => ({ ...s, [key]: false }));
+      return;
+    }
+    // delay closing slightly to avoid cases where blur fires when native options appear
+    // increase delay so arrow remains rotated while native dropdown is visible
+    closeTimeouts.current[key] = setTimeout(() => {
+      setOpen((s) => ({ ...s, [key]: false }));
+      closeTimeouts.current[key] = null;
+    }, 600);
+  };
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (open.brand && brandWrapperRef.current && !brandWrapperRef.current.contains(e.target)) {
+        closeSelect('brand', true);
+      }
+      if (open.price && priceWrapperRef.current && !priceWrapperRef.current.contains(e.target)) {
+        closeSelect('price', true);
+      }
+    };
+
+    if (open.brand || open.price) {
+      document.addEventListener('mousedown', handler);
+      document.addEventListener('touchstart', handler);
+      return () => {
+        document.removeEventListener('mousedown', handler);
+        document.removeEventListener('touchstart', handler);
+      };
+    }
+    return undefined;
+  }, [open.brand, open.price]);
 
   useEffect(() => {
     const getAllBrands = async () => {
@@ -95,7 +147,7 @@ export default function Filters() {
         <label className={css.label} htmlFor="brand">
           Car brand
         </label>
-        <div className={css.selectWrapper}>
+        <div className={css.selectWrapper} ref={brandWrapperRef}>
           <select
             id="brand"
             name="brand"
@@ -104,14 +156,19 @@ export default function Filters() {
             onChange={(e) => {
               handleChange(e);
               // selecting a value closes the native options list in most browsers
-              markClose('brand');
+              closeSelect('brand', true);
             }}
-            onFocus={() => markOpen('brand')}
-            onBlur={() => markClose('brand')}
-            onMouseDown={() => markOpen('brand')}
+            onMouseDown={() => setOpenTemporarily('brand')}
+            onFocus={() => setOpenTemporarily('brand')}
+            onBlur={() => closeSelect('brand', !justOpened.current.brand)}
+            onClick={(e) => {
+              // If the select has just been opened via focus (the opening click), ignore that click.
+              if (justOpened.current.brand) return;
+              setOpen((s) => ({ ...s, brand: !s.brand }));
+            }}
             onKeyDown={(e) => {
               // open-on-key for keyboard users (Space / ArrowDown)
-              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') markOpen('brand');
+              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') setOpenTemporarily('brand');
             }}
           >
             <option value="">Choose a brand</option>
@@ -133,7 +190,7 @@ export default function Filters() {
         <label className={css.label} htmlFor="price">
           Price / 1 hour
         </label>
-        <div className={`${css.selectWrapper} ${css.selectPadding}`}>
+        <div className={`${css.selectWrapper} ${css.selectPadding}`} ref={priceWrapperRef}>
           <select
             id="price"
             name="rentalPrice"
@@ -141,13 +198,17 @@ export default function Filters() {
             value={form.rentalPrice}
             onChange={(e) => {
               handleChange(e);
-              markClose('price');
+              closeSelect('price', true);
             }}
-            onFocus={() => markOpen('price')}
-            onBlur={() => markClose('price')}
-            onMouseDown={() => markOpen('price')}
+            onMouseDown={() => setOpenTemporarily('price')}
+            onFocus={() => setOpenTemporarily('price')}
+            onBlur={() => closeSelect('price', !justOpened.current.price)}
+            onClick={(e) => {
+              if (justOpened.current.price) return;
+              setOpen((s) => ({ ...s, price: !s.price }));
+            }}
             onKeyDown={(e) => {
-              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') markOpen('price');
+              if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'ArrowDown') setOpenTemporarily('price');
             }}
             required
           >
