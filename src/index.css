@@ -1,17 +1,39 @@
-/* Minimal global reset to ensure consistent margins/paddings across environments */
-*,*::before,*::after{box-sizing:border-box}
-html,body,#root{height:100%;margin:0;padding:0}
-body{
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.4;
-}
-/* Remove default margins/paddings for common typographic elements that often differ between browsers */
-h1,h2,h3,h4,h5,h6,p,ul,ol,figure,blockquote{margin:0;padding:0}
-/* Make images responsive */
-img,svg{max-width:100%;height:auto;display:block}
-/* Optional: set a sane default for lists */
-ul,ol{list-style-position:inside}
 
-/* Utility: root container spacing helper if needed */
-.container{max-width:1200px;margin-left:auto;margin-right:auto;padding-left:16px;padding-right:16px}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+html {
+  overflow-y: scroll;
+}
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+textarea {
+  resize: none;
+}

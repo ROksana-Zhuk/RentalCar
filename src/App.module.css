@@ -31,40 +31,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
 
 html, body {
   height: 100%;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: currentColor;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-button {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto;
-}
 
 body {
   background-color: var(--color-bg);
