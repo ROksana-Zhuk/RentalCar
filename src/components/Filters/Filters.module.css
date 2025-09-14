@@ -75,15 +75,13 @@
   margin: 0;
 }
 
-/* Custom scrollbar for react-select menu list (scoped) */
 .select :global(.react-select__menu-list) {
-  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #cfcfcf transparent;
 }
 
 .select :global(.react-select__menu-list)::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
   height: 6px;
 }
 
@@ -94,7 +92,7 @@
 .select :global(.react-select__menu-list)::-webkit-scrollbar-thumb {
   background: #cfcfcf;
   border-radius: 8px;
-  border: 2px solid transparent; /* creates inner padding */
+  border: 2px solid transparent;
   background-clip: padding-box;
 }
 
@@ -102,7 +100,6 @@
   background: #bdbdbd;
 }
 
-/* react-select option styles: unselected text color and no backgrounds */
 .select :global(.react-select__option) {
   color: #8D929A;
   background: transparent;
@@ -278,7 +275,6 @@
     padding-left: 48px;
 }
 
-/* prefix shown for price select */
 .prefix {
     position: absolute;
     left: 12px;
@@ -293,7 +289,6 @@
     opacity: 1;
 }
 
-/* increase left padding for selects that have a visible prefix */
 .hasPrefix :global(.react-select__control) {
     padding-left: 26px;
 }

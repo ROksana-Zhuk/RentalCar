@@ -67,7 +67,7 @@ export default function Filters() {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    if (carsLoading || isSearchingRef.current) return; // guard rapid clicks
+    if (carsLoading || isSearchingRef.current) return;
 
     isSearchingRef.current = true;
     setIsSearching(true);
@@ -93,7 +93,6 @@ export default function Filters() {
     }
   };
 
-  // map options for react-select
   const brandOptions = allBrands.map((b) => ({ value: b, label: b }));
   const priceOptionsSelect = priceOptions.map((p) => ({ value: String(p), label: String(p) }));
 
@@ -152,7 +151,6 @@ export default function Filters() {
             isClearable={false}
           />
 
-          {/* show prefix when a real price is selected */}
           {form.rentalPrice ? <span className={css.prefix}>To $</span> : null}
         </div>
       </div>

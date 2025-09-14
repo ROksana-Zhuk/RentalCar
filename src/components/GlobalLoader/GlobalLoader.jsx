@@ -7,8 +7,10 @@ export default function GlobalLoader() {
         <div className={css.road} />
         <div className={css.car} aria-hidden="true">
           <div className={css.body} />
-          <div className={css.wheel} />
-          <div className={css.wheel} />
+          <div className={css.wheels}>
+            <div className={css.wheel} />
+            <div className={css.wheel} />
+          </div>
         </div>
       </div>
     </div>

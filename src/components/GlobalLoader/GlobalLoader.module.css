@@ -17,7 +17,7 @@
 
 .road {
   position: absolute;
-  bottom: 8px;
+  bottom: 24px;
   left: 0;
   right: 0;
   height: 8px;
@@ -31,10 +31,7 @@
   left: -120px;
   top: 0;
   width: 120px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  height: 56px;
   animation: drive 1.6s linear infinite;
   pointer-events: none;
 }
@@ -45,6 +42,22 @@
   background: linear-gradient(180deg,#3470FF,#0B44CD);
   border-radius: 10px 10px 6px 6px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+}
+
+.wheels {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 6px;
+  display: flex;
+  gap: 18px;
+  width: 76px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .wheel {
@@ -55,6 +68,7 @@
   box-shadow: inset -3px -3px 0 rgba(255,255,255,0.06);
   transform-origin: center;
   animation: spin 0.4s linear infinite;
+  position: relative;
 }
 
 @keyframes drive {
